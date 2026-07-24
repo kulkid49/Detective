@@ -250,7 +250,7 @@ export default async function handler(req, res) {
 
   const generate = async (retryMessage = null) => {
     const messages = [
-      { role: 'system', content: CASE_GENERATION_PROMPT },
+      { role: 'system', content: CASE_GENERATION_PROMPT + '\n\nREQUIRED JSON SCHEMA:\n' + JSON.stringify(DETECTIVE_CASE_JSON_SCHEMA, null, 2) },
       { role: 'user', content: `Generate a ${difficulty} ${type} case set in ${setting}.` }
     ];
 
@@ -271,14 +271,7 @@ export default async function handler(req, res) {
         model: 'anthropic/claude-sonnet-4.5',
         max_tokens: 2500,
         messages: messages,
-        response_format: {
-          type: "json_schema",
-          json_schema: {
-            name: "detective_case",
-            strict: true,
-            schema: DETECTIVE_CASE_JSON_SCHEMA
-          }
-        }
+        response_format: { type: "json_object" }
       })
     });
 
