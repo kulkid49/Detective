@@ -1,7 +1,7 @@
 export const maxDuration = 60; // Max allowed duration on Vercel Hobby tier
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-const DETECTIVE_CASE_JSON_SCHEMA = {
+const SCHEMA_PART_1 = {
   "type": "object",
   "properties": {
     "case_id": { "type": "string" },
@@ -15,8 +15,7 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
         "date": { "type": "string" },
         "real_world_anchor": { "type": "string" }
       },
-      "required": ["city", "date", "real_world_anchor"],
-      "additionalProperties": false
+      "required": ["city", "date", "real_world_anchor"]
     },
     "police_briefing": {
       "type": "object",
@@ -31,8 +30,7 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
             "background": { "type": "string" },
             "last_known_movements": { "type": "string" }
           },
-          "required": ["name", "age", "occupation", "background", "last_known_movements"],
-          "additionalProperties": false
+          "required": ["name", "age", "occupation", "background", "last_known_movements"]
         },
         "incident_details": {
           "type": "object",
@@ -42,13 +40,41 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
             "cause_of_death_or_method": { "type": "string" },
             "initial_state_of_scene": { "type": "string" }
           },
-          "required": ["location", "time_estimate", "cause_of_death_or_method", "initial_state_of_scene"],
-          "additionalProperties": false
+          "required": ["location", "time_estimate", "cause_of_death_or_method", "initial_state_of_scene"]
         }
       },
-      "required": ["summary", "victim_or_target", "incident_details"],
-      "additionalProperties": false
+      "required": ["summary", "victim_or_target", "incident_details"]
     },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "time": { "type": "string" },
+          "event": { "type": "string" },
+          "public_knowledge": { "type": "boolean" }
+        },
+        "required": ["time", "event", "public_knowledge"]
+      }
+    },
+    "solution": {
+      "type": "object",
+      "properties": {
+        "culprit_id": { "type": "string" },
+        "method": { "type": "string" },
+        "motive": { "type": "string" },
+        "key_evidence_chain": { "type": "array", "items": { "type": "string" } },
+        "full_explanation": { "type": "string" }
+      },
+      "required": ["culprit_id", "method", "motive", "key_evidence_chain", "full_explanation"]
+    }
+  },
+  "required": ["case_id", "title", "case_type", "difficulty", "setting", "police_briefing", "timeline", "solution"]
+};
+
+const SCHEMA_PART_2 = {
+  "type": "object",
+  "properties": {
     "suspects": {
       "type": "array",
       "items": {
@@ -67,8 +93,7 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
           "relationship_to_other_suspects": { "type": "string" },
           "portrait_prompt": { "type": "string" }
         },
-        "required": ["id", "name", "role_in_victims_life", "alibi", "true_whereabouts", "motive", "motive_strength", "personality", "secrets", "guilty", "relationship_to_other_suspects", "portrait_prompt"],
-        "additionalProperties": false
+        "required": ["id", "name", "role_in_victims_life", "alibi", "true_whereabouts", "motive", "motive_strength", "personality", "secrets", "guilty", "relationship_to_other_suspects", "portrait_prompt"]
       }
     },
     "witnesses": {
@@ -85,10 +110,16 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
           "personality": { "type": "string" },
           "portrait_prompt": { "type": "string" }
         },
-        "required": ["id", "name", "connection_to_case", "reliability", "what_they_actually_saw", "what_they_will_initially_claim", "personality", "portrait_prompt"],
-        "additionalProperties": false
+        "required": ["id", "name", "connection_to_case", "reliability", "what_they_actually_saw", "what_they_will_initially_claim", "personality", "portrait_prompt"]
       }
-    },
+    }
+  },
+  "required": ["suspects", "witnesses"]
+};
+
+const SCHEMA_PART_3 = {
+  "type": "object",
+  "properties": {
     "evidence": {
       "type": "array",
       "items": {
@@ -101,10 +132,9 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
           "location_found": { "type": "string" },
           "relevance": { "type": "string" },
           "unlocks": { "type": "array", "items": { "type": "string" } },
-          "image_prompt": { "type": "string", "description": "text-to-image prompt, or empty string if null" }
+          "image_prompt": { "type": "string" }
         },
-        "required": ["id", "type", "name", "description", "location_found", "relevance", "unlocks", "image_prompt"],
-        "additionalProperties": false
+        "required": ["id", "type", "name", "description", "location_found", "relevance", "unlocks", "image_prompt"]
       }
     },
     "locations": {
@@ -118,21 +148,7 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
           "description": { "type": "string" },
           "examinable_details": { "type": "array", "items": { "type": "string" } }
         },
-        "required": ["id", "name", "real_world_reference", "description", "examinable_details"],
-        "additionalProperties": false
-      }
-    },
-    "timeline": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "time": { "type": "string" },
-          "event": { "type": "string" },
-          "public_knowledge": { "type": "boolean" }
-        },
-        "required": ["time", "event", "public_knowledge"],
-        "additionalProperties": false
+        "required": ["id", "name", "real_world_reference", "description", "examinable_details"]
       }
     },
     "red_herrings": {
@@ -144,21 +160,8 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
           "why_it_misleads": { "type": "string" },
           "how_its_debunked": { "type": "string" }
         },
-        "required": ["description", "why_it_misleads", "how_its_debunked"],
-        "additionalProperties": false
+        "required": ["description", "why_it_misleads", "how_its_debunked"]
       }
-    },
-    "solution": {
-      "type": "object",
-      "properties": {
-        "culprit_id": { "type": "string" },
-        "method": { "type": "string" },
-        "motive": { "type": "string" },
-        "key_evidence_chain": { "type": "array", "items": { "type": "string" } },
-        "full_explanation": { "type": "string" }
-      },
-      "required": ["culprit_id", "method", "motive", "key_evidence_chain", "full_explanation"],
-      "additionalProperties": false
     },
     "gamification": {
       "type": "object",
@@ -167,61 +170,11 @@ const DETECTIVE_CASE_JSON_SCHEMA = {
         "achievements": { "type": "array", "items": { "type": "string" } },
         "hint_system": { "type": "string" }
       },
-      "required": ["difficulty_modifiers", "achievements", "hint_system"],
-      "additionalProperties": false
+      "required": ["difficulty_modifiers", "achievements", "hint_system"]
     }
   },
-  "required": [
-    "case_id", "title", "case_type", "difficulty", "setting", "police_briefing",
-    "suspects", "witnesses", "evidence", "locations", "timeline", "red_herrings",
-    "solution", "gamification"
-  ],
-  "additionalProperties": false
+  "required": ["evidence", "locations", "red_herrings", "gamification"]
 };
-
-const CASE_GENERATION_PROMPT = `
-You are a master mystery author and puzzle designer, in the tradition of
-Agatha Christie, classic Sherlock Holmes casebooks, and modern deduction
-games like "Return of the Obra Dinn" and "Her Story." You generate complete,
-internally consistent investigation cases for a detective video game. The
-player is a detective who will read a police briefing, interview suspects
-and witnesses, examine evidence, and ultimately accuse someone and justify
-the accusation with evidence.
-
-Output a JSON object matching the detective_case schema exactly, with these
-top-level sections: case_id, title, case_type, difficulty, setting,
-police_briefing (summary, victim_or_target, incident_details), suspects[]
-(id, name, role_in_victims_life, alibi, true_whereabouts [ground truth,
-hidden from player], motive, motive_strength, personality, secrets[],
-guilty, relationship_to_other_suspects, portrait_prompt), witnesses[] (id,
-name, connection_to_case, reliability, what_they_actually_saw [ground
-truth], what_they_will_initially_claim, personality, portrait_prompt),
-evidence[] (id, type, name, description, location_found, relevance,
-unlocks[], image_prompt), locations[] (id, name, real_world_reference [a
-REAL nearby place/landmark name so the player can cross-reference Google
-Maps/Wikipedia], description, examinable_details[]), timeline[] (time,
-event, public_knowledge), red_herrings[] (description, why_it_misleads,
-how_its_debunked), solution (culprit_id, method, motive,
-key_evidence_chain[], full_explanation), gamification
-(difficulty_modifiers, achievements[], hint_system).
-
-RULES:
-- Ground truth fields (true_whereabouts, what_they_actually_saw, culprit_id,
-  solution) must never leak into player-visible fields — the game client
-  hides these until deduced/revealed.
-- The case must be SOLVABLE: every element of the solution reachable
-  through some combination of evidence + interrogation, no unearned leaps.
-- Include at least 2 red herrings and at least 1 suspect with a strong
-  motive who is NOT guilty.
-- Vary witness reliability — at least one witness should be innocently
-  wrong about something.
-- Use real, verifiable place names for real_world_reference so players can
-  genuinely cross-reference Google Maps/Wikipedia/Street View — but never
-  use real living people or real unsolved crimes.
-- portrait_prompt/image_prompt fields must be standalone, non-spoiling
-  prompts suitable for direct submission to an image model. For evidence image_prompt, use empty string if null.
-- Output only valid JSON matching the schema — no prose, no markdown fences.
-`;
 
 const extractJSON = (text) => {
   try {
@@ -236,6 +189,14 @@ const extractJSON = (text) => {
   }
 };
 
+const COMMON_RULES = `
+RULES:
+- The case must be SOLVABLE: every element of the solution reachable through some combination of evidence + interrogation, no unearned leaps.
+- Use real, verifiable place names for real_world_reference so players can genuinely cross-reference Google Maps/Wikipedia/Street View — but never use real living people or real unsolved crimes.
+- portrait_prompt/image_prompt fields must be standalone, non-spoiling prompts suitable for direct submission to an image model. For evidence image_prompt, use empty string if null.
+- Output only valid JSON matching the schema — no prose, no markdown fences.
+`;
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -248,58 +209,108 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "OpenRouter API Key not configured." });
   }
 
-  const generate = async (retryMessage = null) => {
-    const messages = [
-      { role: 'system', content: CASE_GENERATION_PROMPT + '\n\nREQUIRED JSON SCHEMA:\n' + JSON.stringify(DETECTIVE_CASE_JSON_SCHEMA, null, 2) },
-      { role: 'user', content: `Generate a ${difficulty} ${type} case set in ${setting}.` }
-    ];
+  const callOpenRouter = async (systemPrompt, userPrompt, maxTokens, retryCount = 1) => {
+    try {
+      const response = await fetch(OPENROUTER_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+          'HTTP-Referer': 'https://detective-game.vercel.app', 
+          'X-Title': 'Case Files Game', 
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'anthropic/claude-sonnet-4.5',
+          max_tokens: maxTokens,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt }
+          ],
+          response_format: { type: "json_object" }
+        })
+      });
 
-    if (retryMessage) {
-      messages.push({ role: 'assistant', content: '{' }); // Simulated partial output
-      messages.push({ role: 'user', content: retryMessage });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`OpenRouter API Error: ${errorText}`);
+      }
+
+      const data = await response.json();
+      let content = data.choices[0].message.content;
+      content = extractJSON(content);
+      return JSON.parse(content);
+    } catch (error) {
+      if (retryCount > 0) {
+        console.warn("JSON parse failed or API error, retrying...", error.message);
+        return await callOpenRouter(systemPrompt, userPrompt + "\n\nEnsure you return ONLY valid JSON.", maxTokens, retryCount - 1);
+      }
+      throw error;
     }
-
-    const response = await fetch(OPENROUTER_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://detective-game.vercel.app', 
-        'X-Title': 'Case Files Game', 
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4.5',
-        max_tokens: 8000,
-        messages: messages,
-        response_format: { type: "json_object" }
-      })
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`OpenRouter API Error: ${errorText}`);
-    }
-
-    const data = await response.json();
-    return data;
   };
 
   try {
-    let data = await generate();
-    let content = data.choices[0].message.content;
-    content = extractJSON(content);
+    // -------------------------------------------------------------
+    // STEP 1: Master Plan
+    // -------------------------------------------------------------
+    const prompt1 = `You are a master mystery author. Step 1: Design the CORE SPINE of a detective game case.
+Output ONLY a JSON object matching the provided schema exactly.
+${COMMON_RULES}
+REQUIRED JSON SCHEMA:
+${JSON.stringify(SCHEMA_PART_1, null, 2)}`;
 
-    try {
-      const caseData = JSON.parse(content);
-      return res.status(200).json(caseData);
-    } catch (parseError) {
-      console.warn("Initial JSON parse failed, retrying...", parseError);
-      // Retry once
-      data = await generate("Return valid JSON only, matching the schema exactly.");
-      content = extractJSON(data.choices[0].message.content);
-      const caseData = JSON.parse(content);
-      return res.status(200).json(caseData);
-    }
+    const part1 = await callOpenRouter(
+      prompt1,
+      `Generate the master plan for a ${difficulty} ${type} case set in ${setting}.`,
+      1200 // Max tokens for Part 1
+    );
+
+    // -------------------------------------------------------------
+    // STEP 2: Cast & Characters
+    // -------------------------------------------------------------
+    const prompt2 = `You are a master mystery author. Step 2: Flesh out the CAST & CHARACTERS for the case.
+You must design the suspects and witnesses based on the Master Plan provided by the user.
+Include at least 1 suspect with a strong motive who is NOT guilty.
+Vary witness reliability — at least one witness should be innocently wrong about something.
+Ground truth fields (true_whereabouts, what_they_actually_saw) must never leak into player-visible fields.
+Output ONLY a JSON object matching the provided schema exactly.
+${COMMON_RULES}
+REQUIRED JSON SCHEMA:
+${JSON.stringify(SCHEMA_PART_2, null, 2)}`;
+
+    const part2 = await callOpenRouter(
+      prompt2,
+      `Master Plan:\n${JSON.stringify(part1, null, 2)}\n\nNow generate the suspects and witnesses for this case.`,
+      1400 // Max tokens for Part 2
+    );
+
+    // -------------------------------------------------------------
+    // STEP 3: Investigation Elements
+    // -------------------------------------------------------------
+    const prompt3 = `You are a master mystery author. Step 3: Design the EVIDENCE, LOCATIONS, and GAME MECHANICS.
+You must design these elements to seamlessly support the Master Plan and the Cast provided by the user.
+Include at least 2 red herrings.
+Ensure every element of the solution is reachable through some combination of this evidence + interrogation.
+Output ONLY a JSON object matching the provided schema exactly.
+${COMMON_RULES}
+REQUIRED JSON SCHEMA:
+${JSON.stringify(SCHEMA_PART_3, null, 2)}`;
+
+    const part3 = await callOpenRouter(
+      prompt3,
+      `Master Plan:\n${JSON.stringify(part1, null, 2)}\n\nCast:\n${JSON.stringify(part2, null, 2)}\n\nNow generate the evidence, locations, red_herrings, and gamification.`,
+      1400 // Max tokens for Part 3
+    );
+
+    // -------------------------------------------------------------
+    // STITCHING
+    // -------------------------------------------------------------
+    const fullCase = {
+      ...part1,
+      ...part2,
+      ...part3
+    };
+
+    res.status(200).json(fullCase);
   } catch (error) {
     console.error("Case Generation Error:", error);
     res.status(500).json({ error: "An unexpected error occurred during case generation.", details: error.message });
