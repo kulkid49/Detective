@@ -748,12 +748,12 @@ export default {
     { time: "7:00 PM", event: "Debashish closes the shop and drives home.", public_knowledge: true },
     { time: "8:15 PM", event: "Anirban arrives at the residence; a loud argument follows.", public_knowledge: true },
     { time: "8:45 PM", event: "Housekeeper Sunita leaves for the night.", public_knowledge: true },
-    { time: "9:00 PM", event: "Meera calls Debashish, but this call is not recorded on the phone log (a separate, earlier call from her landline).", public_knowledge: false },
+    { time: "9:00 PM", event: "Meera calls Debashish, but this call is not recorded on the phone log (a separate, earlier call from her landline).", public_knowledge: false, unlocks_with: "alibi_gap" },
     { time: "9:30 PM", event: "Anirban leaves the residence, seen by the night watchman.", public_knowledge: true },
-    { time: "9:45 PM", event: "Meera calls Debashish's phone for two minutes.", public_knowledge: false },
-    { time: "10:15–10:30 PM", event: "Meera arrives at the residence via the back gate.", public_knowledge: false },
-    { time: "10:30–10:45 PM", event: "Confrontation over the forged certificates and the dissolution letter turns violent.", public_knowledge: false },
-    { time: "10:45 PM", event: "A figure in a dark green shawl is seen leaving via the back gate by a neighbor.", public_knowledge: false },
+    { time: "9:45 PM", event: "Meera calls Debashish's phone for two minutes.", public_knowledge: false, unlocks_with: "phone_log" },
+    { time: "10:15–10:30 PM", event: "Meera arrives at the residence via the back gate.", public_knowledge: false, unlocks_with: "torn_shawl" },
+    { time: "10:30–10:45 PM", event: "Confrontation over the forged certificates and the dissolution letter turns violent.", public_knowledge: false, unlocks_with: "dissolution_letter" },
+    { time: "10:45 PM", event: "A figure in a dark green shawl is seen leaving via the back gate by a neighbor.", public_knowledge: false, unlocks_with: "witness_sighting_note" },
     { time: "7:30 AM (next day)", event: "Sunita arrives and discovers the body.", public_knowledge: true }
   ],
 

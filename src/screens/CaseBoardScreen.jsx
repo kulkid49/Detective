@@ -236,7 +236,8 @@ export default function CaseBoardScreen() {
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {activeCase.timeline?.map((event, idx) => {
-                const isKnown = event.public_knowledge !== false;
+                const isKnown = event.public_knowledge !== false || 
+                               (event.unlocks_with && progress.unlockedEvidence.includes(event.unlocks_with));
                 
                 return (
                   <div key={idx} style={{ display: 'flex', gap: '2rem', opacity: isKnown ? 1 : 0.6 }}>

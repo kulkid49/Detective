@@ -766,9 +766,9 @@ export default {
   timeline: [
     { time: "2:15 PM", event: "Ananya Roy begins the private authentication session in the study.", public_knowledge: true },
     { time: "2:20 PM", event: "Kamala steps out to take a lawyer's phone call.", public_knowledge: true },
-    { time: "2:30 PM", event: "Ananya asks Priya to fetch tea and leave the room.", public_knowledge: false },
-    { time: "2:42 PM", event: "The display case's sensor is deactivated.", public_knowledge: false },
-    { time: "2:45 PM", event: "The genuine necklace is swapped for the paste replica.", public_knowledge: false },
+    { time: "2:30 PM", event: "Ananya asks Priya to fetch tea and leave the room.", public_knowledge: false, unlocks_with: "priya_testimony" },
+    { time: "2:42 PM", event: "The display case's sensor is deactivated.", public_knowledge: false, unlocks_with: "sensor_log" },
+    { time: "2:45 PM", event: "The genuine necklace is swapped for the paste replica.", public_knowledge: false, unlocks_with: "ananya_equipment_invoice" },
     { time: "3:00 PM", event: "The authentication session concludes; everything appears normal.", public_knowledge: true },
     { time: "5:00 PM", event: "Catering crew, including Farhan, arrives to set up.", public_knowledge: true },
     { time: "7:00 PM", event: "Rajiv arrives for the gala.", public_knowledge: true },
