@@ -1,0 +1,178 @@
+:root {
+  --desk-bg: #2d241c;
+  --corkboard-bg: #b9935a;
+  --manila-folder: #eaddb3;
+  --paper-white: #f4f1ea;
+  --typewriter-ink: #1e1e1e;
+  --blood-red: #8b0000;
+  --stamp-red: #c92a2a;
+  
+  --font-typewriter: 'Courier Prime', monospace;
+  --font-typewriter-bold: 'Special Elite', monospace;
+  --font-handwriting: 'Caveat', cursive;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--desk-bg);
+  color: var(--typewriter-ink);
+  font-family: var(--font-sans);
+  overflow: hidden; /* App feels like a single desk view */
+  /* Scratched wood texture using radial gradients */
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
+}
+
+.desk-layout {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* UI Elements */
+
+.btn {
+  font-family: var(--font-typewriter-bold);
+  background: var(--manila-folder);
+  border: 1px solid #c2b58e;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+  filter: brightness(1.05);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.paper-doc {
+  background: var(--paper-white);
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  font-family: var(--font-typewriter);
+  line-height: 1.6;
+  position: relative;
+  /* subtle paper texture */
+  background-image: linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 100% 1.5rem;
+}
+
+.polaroid {
+  background: white;
+  padding: 10px 10px 40px 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.polaroid:hover {
+  z-index: 10;
+}
+
+.polaroid-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #333;
+}
+
+.polaroid-caption {
+  font-family: var(--font-handwriting);
+  font-size: 1.5rem;
+  text-align: center;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  left: 0;
+  color: #222;
+}
+
+.pushpin {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--blood-red);
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4), 2px 2px 4px rgba(0,0,0,0.5);
+  z-index: 5;
+}
+
+/* Specifically for typewriter effect */
+.typewriter-text {
+  overflow: hidden;
+  white-space: pre-wrap;
+  display: inline-block;
+}
+
+.stamp {
+  font-family: var(--font-typewriter-bold);
+  font-size: 4rem;
+  color: var(--stamp-red);
+  border: 4px solid var(--stamp-red);
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  transform: rotate(-15deg);
+  opacity: 0.8;
+  position: absolute;
+  pointer-events: none;
+  /* To give it a slightly distressed look */
+  mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="white"/><circle cx="50" cy="50" r="40" fill="black"/></svg>');
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0.3) 100%);
+}
+
+.corkboard-bg {
+  background-color: var(--corkboard-bg);
+  /* Cork texture approximation */
+  background-image: 
+    radial-gradient(rgba(0, 0, 0, 0.1) 15%, transparent 16%),
+    radial-gradient(rgba(0, 0, 0, 0.1) 15%, transparent 16%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.6);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
