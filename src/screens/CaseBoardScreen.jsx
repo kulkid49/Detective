@@ -154,12 +154,104 @@ export default function CaseBoardScreen() {
           </div>
         )}
 
-        {/* Other tabs omitted for brevity in scaffolding, can be fleshed out */}
-        {(activeTab === 'locations' || activeTab === 'timeline') && (
-          <div className="paper-doc">
-            <h3>{activeTab.toUpperCase()}</h3>
-            <p>Work in progress...</p>
+        {activeTab === 'locations' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+            {activeCase.locations?.map(loc => (
+              <motion.div key={loc.id} className="paper-doc" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+                <h3 style={{ borderBottom: '2px solid var(--blood-red)', paddingBottom: '0.5rem', marginTop: 0, fontFamily: 'var(--font-typewriter-bold)' }}>
+                  {loc.name.toUpperCase()}
+                </h3>
+                {loc.real_world_reference && <p style={{ fontSize: '0.85rem', color: '#666', fontStyle: 'italic', margin: '0.5rem 0' }}>{loc.real_world_reference}</p>}
+                <p style={{ marginTop: '1rem', lineHeight: '1.5' }}>{loc.description}</p>
+                
+                {loc.examinable_details && loc.examinable_details.length > 0 && (
+                  <div style={{ marginTop: '2rem', borderTop: '1px dashed #ccc', paddingTop: '1rem' }}>
+                    <h4 style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>INVESTIGATE:</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                      {loc.examinable_details.map(detail => {
+                        const allUnlocked = detail.unlocks_evidence_ids?.every(id => progress.unlockedEvidence.includes(id));
+                        return (
+                          <button
+                            key={detail.id}
+                            className="btn"
+                            style={{ 
+                              textAlign: 'left', 
+                              padding: '0.75rem 1rem', 
+                              fontSize: '0.9rem',
+                              background: allUnlocked ? '#e8e4db' : 'transparent',
+                              color: 'var(--typewriter-ink)',
+                              border: '1px solid #999',
+                              opacity: allUnlocked ? 0.7 : 1,
+                              display: 'flex',
+                              gap: '0.5rem',
+                              alignItems: 'flex-start'
+                            }}
+                            onClick={() => {
+                              const store = useGameStore.getState();
+                              if (detail.unlocks_evidence_ids) {
+                                let newlyUnlocked = false;
+                                detail.unlocks_evidence_ids.forEach(evId => {
+                                  if (!store.progress.unlockedEvidence.includes(evId)) {
+                                    store.unlockEvidence(evId);
+                                    newlyUnlocked = true;
+                                  }
+                                });
+                                if (newlyUnlocked) {
+                                  alert(detail.text + "\n\n[ NEW EVIDENCE UNLOCKED! Check the Evidence tab. ]");
+                                } else {
+                                  alert(detail.text);
+                                }
+                              } else {
+                                alert(detail.text);
+                              }
+                            }}
+                          >
+                            <span style={{ fontWeight: 'bold' }}>{allUnlocked ? "✓" : "?"}</span>
+                            <span>Examine {detail.id.replace(/_/g, ' ')}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+            {(!activeCase.locations || activeCase.locations.length === 0) && (
+              <div style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-typewriter)', fontSize: '1.2rem', padding: '2rem' }}>
+                No locations available.
+              </div>
+            )}
           </div>
+        )}
+
+        {activeTab === 'timeline' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem', background: 'var(--paper-white)', border: '1px solid #ccc', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+          >
+            <h2 style={{ textAlign: 'center', borderBottom: '2px solid #333', paddingBottom: '1rem', fontFamily: 'var(--font-typewriter-bold)', margin: '0 0 2rem 0' }}>
+              CHRONOLOGY OF EVENTS
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {activeCase.timeline?.map((event, idx) => {
+                const isKnown = event.public_knowledge !== false;
+                
+                return (
+                  <div key={idx} style={{ display: 'flex', gap: '2rem', opacity: isKnown ? 1 : 0.6 }}>
+                    <div style={{ width: '180px', flexShrink: 0, fontWeight: 'bold', borderRight: '2px solid var(--blood-red)', paddingRight: '1rem', textAlign: 'right', fontFamily: 'var(--font-typewriter-bold)', color: isKnown ? 'var(--typewriter-ink)' : '#999' }}>
+                      {event.time}
+                    </div>
+                    <div style={{ flex: 1, fontFamily: 'var(--font-typewriter)', fontStyle: isKnown ? 'normal' : 'italic', color: isKnown ? 'var(--typewriter-ink)' : '#666' }}>
+                      {isKnown ? event.event : "[ UNDISCLOSED EVENT - Information missing or concealed ]"}
+                    </div>
+                  </div>
+                )
+              })}
+              {(!activeCase.timeline || activeCase.timeline.length === 0) && (
+                <div style={{ textAlign: 'center', color: '#666' }}>No timeline data available.</div>
+              )}
+            </div>
+          </motion.div>
         )}
 
       </div>
