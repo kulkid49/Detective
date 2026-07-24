@@ -104,7 +104,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Barely knows Ananya Roy or the security/catering staff personally.",
-      portrait_image: null
+      portrait_image: "/images/suspects/case-02.jpg"
     },
     {
       id: "bikram",
@@ -133,7 +133,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Professional-only relationship with Ananya and the household staff.",
-      portrait_image: null
+      portrait_image: "/images/suspects/bikram.jpg"
     },
     {
       id: "ananya",
@@ -166,7 +166,7 @@ export default {
       relationship_to_other_suspects:
         "Purely professional relationship with the Mukherjee household; no " +
         "connection to Rajiv, Bikram, or Farhan.",
-      portrait_image: null
+      portrait_image: "/images/suspects/ananya.jpg"
     },
     {
       id: "farhan",
@@ -197,7 +197,7 @@ export default {
       relationship_to_other_suspects:
         "No relationship with Rajiv, Bikram, or Ananya beyond having worked " +
         "the same events occasionally.",
-      portrait_image: null
+      portrait_image: "/images/suspects/farhan.jpg"
     }
   ],
 
@@ -220,7 +220,7 @@ export default {
         "observant but not naturally suspicious of people",
         "a little guilty in hindsight for not thinking twice about it"
       ],
-      portrait_image: null
+      portrait_image: "/images/suspects/priya.jpg"
     },
     {
       id: "deepak",
@@ -240,7 +240,7 @@ export default {
         "easygoing, enjoys talking about his work",
         "unaware of the significance of his own photos until it's pointed out"
       ],
-      portrait_image: null
+      portrait_image: "/images/suspects/deepak.jpg"
     }
   ],
 

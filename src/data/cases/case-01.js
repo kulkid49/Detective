@@ -100,7 +100,7 @@ export default {
       relationship_to_other_suspects:
         "Has always been mildly suspicious of Meera Sen, feeling she gets more " +
         "credit in the business than she deserves.",
-      portrait_image: null
+      portrait_image: "/images/suspects/case-01.jpg"
     },
     {
       id: "meera",
@@ -132,7 +132,7 @@ export default {
       relationship_to_other_suspects:
         "Long, mostly cordial working relationship with Debashish; views " +
         "Anirban as an occasional nuisance in the business.",
-      portrait_image: null
+      portrait_image: "/images/suspects/meera.jpg"
     },
     {
       id: "ratan",
@@ -160,7 +160,7 @@ export default {
       relationship_to_other_suspects:
         "No real relationship with Anirban or Meera beyond professional " +
         "circles.",
-      portrait_image: null
+      portrait_image: "/images/suspects/ratan.jpg"
     },
     {
       id: "sunita",
@@ -188,7 +188,7 @@ export default {
       relationship_to_other_suspects:
         "Fond of Anirban, whom she's known since he was a boy; polite but " +
         "distant with Meera.",
-      portrait_image: null
+      portrait_image: "/images/suspects/sunita.jpg"
     }
   ],
 
@@ -210,7 +210,7 @@ export default {
         "matter-of-fact, doesn't gossip maliciously",
         "happy to help once asked directly"
       ],
-      portrait_image: null
+      portrait_image: "/images/witnesses/chatterjee.jpg"
     },
     {
       id: "ranjit",
@@ -230,7 +230,7 @@ export default {
         "a little embarrassed to admit the limits of what he can see",
         "straightforward once he understands what's being asked"
       ],
-      portrait_image: null
+      portrait_image: "/images/suspects/ratan.jpg"
     }
   ],
 
