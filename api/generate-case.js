@@ -269,7 +269,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'anthropic/claude-sonnet-4.5',
-        max_tokens: 2500,
+        max_tokens: 8000,
         messages: messages,
         response_format: { type: "json_object" }
       })
