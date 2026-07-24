@@ -18,7 +18,7 @@ const TypewriterText = ({ text, onComplete }) => {
     }, 15); // Speed of typing
     
     return () => clearInterval(interval);
-  }, [text, onComplete]);
+  }, [text]); // Removed onComplete to prevent restart on parent re-render
 
   return <span className="typewriter-text">{displayedText}</span>;
 };
