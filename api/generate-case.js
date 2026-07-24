@@ -184,7 +184,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'google/gemini-1.5-pro',
+        model: 'anthropic/claude-sonnet-4.5',
         messages: [
           { role: 'system', content: prompt },
           { role: 'user', content: 'Generate the case.' }
