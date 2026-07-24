@@ -100,7 +100,7 @@ export default {
       relationship_to_other_suspects:
         "Has always been mildly suspicious of Meera Sen, feeling she gets more " +
         "credit in the business than she deserves.",
-      portrait_image: "/images/suspects/case-01.jpg"
+      portrait_image: "/images/suspects/anirban.jpg"
     },
     {
       id: "meera",
@@ -230,7 +230,7 @@ export default {
         "a little embarrassed to admit the limits of what he can see",
         "straightforward once he understands what's being asked"
       ],
-      portrait_image: "/images/suspects/ratan.jpg"
+      portrait_image: "/images/suspects/ranjit.jpg"
     }
   ],
 

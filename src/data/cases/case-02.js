@@ -104,7 +104,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Barely knows Ananya Roy or the security/catering staff personally.",
-      portrait_image: "/images/suspects/case-02.jpg"
+      portrait_image: "/images/suspects/rajiv.jpg"
     },
     {
       id: "bikram",
