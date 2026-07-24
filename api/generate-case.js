@@ -1,3 +1,4 @@
+export const maxDuration = 60; // Max allowed duration on Vercel Hobby tier
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 // Case Generation Prompt Template
