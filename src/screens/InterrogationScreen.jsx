@@ -106,6 +106,13 @@ export default function InterrogationScreen() {
           <strong>SUBJECT:</strong> {character.name.toUpperCase()}<br/>
           <strong>ROLE:</strong> {character.role_in_victims_life || character.connection_to_case}
         </div>
+        <button 
+          className="btn"
+          style={{ marginTop: 'auto', width: '100%' }}
+          onClick={() => navigate(`/case/${caseId}/board`)}
+        >
+          &larr; BACK TO BOARD
+        </button>
       </div>
 
       {/* Transcript Column (Stenographer Notepad Style) */}

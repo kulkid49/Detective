@@ -93,13 +93,22 @@ export default function AccusationScreen() {
               </div>
             </div>
 
-            <button 
-              className="btn" 
-              onClick={submitWarrant}
-              style={{ marginTop: '3rem', alignSelf: 'center', fontSize: '1.2rem', padding: '1rem 3rem' }}
-            >
-              SUBMIT TO D.A.
-            </button>
+            <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', marginTop: '3rem' }}>
+              <button 
+                className="btn" 
+                onClick={() => navigate(`/case/${activeCase.case_id}/board`)}
+                style={{ fontSize: '1.2rem', padding: '1rem 3rem', background: 'transparent' }}
+              >
+                &larr; BACK
+              </button>
+              <button 
+                className="btn" 
+                onClick={submitWarrant}
+                style={{ fontSize: '1.2rem', padding: '1rem 3rem' }}
+              >
+                SUBMIT TO D.A.
+              </button>
+            </div>
           </div>
         ) : (
           <div style={{ marginTop: '2rem', minHeight: '300px' }}>
