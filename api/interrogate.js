@@ -56,8 +56,7 @@ Rules:
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4.5',
-        max_tokens: 500,
+        model: 'google/gemini-1.5-flash',
         messages: messages
       })
     });

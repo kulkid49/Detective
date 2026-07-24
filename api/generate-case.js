@@ -220,7 +220,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4.5',
+          model: 'google/gemini-1.5-flash',
           max_tokens: maxTokens,
           messages: [
             { role: 'system', content: systemPrompt },
@@ -253,7 +253,6 @@ export default async function handler(req, res) {
     // STEP 1: Master Plan
     // -------------------------------------------------------------
     const prompt1 = `You are a master mystery author. Step 1: Design the CORE SPINE of a detective game case.
-CRITICAL: Keep all text fields (summary, background, explanations, etc.) EXTREMELY BRIEF (1-2 sentences max) to conserve tokens.
 Output ONLY a JSON object matching the provided schema exactly.
 ${COMMON_RULES}
 REQUIRED JSON SCHEMA:
@@ -262,7 +261,7 @@ ${JSON.stringify(SCHEMA_PART_1, null, 2)}`;
     const part1 = await callOpenRouter(
       prompt1,
       `Generate the master plan for a ${difficulty} ${type} case set in ${setting}.`,
-      1200 // Max tokens for Part 1
+      4000 // Max tokens for Part 1
     );
 
     // -------------------------------------------------------------
@@ -273,7 +272,6 @@ You must design the suspects and witnesses based on the Master Plan provided by 
 Include exactly 3 suspects (including 1 with a strong motive who is NOT guilty).
 Include exactly 2 witnesses (one should be innocently wrong about something).
 Ground truth fields must never leak into player-visible fields.
-CRITICAL: Keep all text fields (alibi, whereabouts, motive, personality, secrets, etc.) EXTREMELY BRIEF (1-2 sentences max) to conserve tokens.
 Output ONLY a JSON object matching the provided schema exactly.
 ${COMMON_RULES}
 REQUIRED JSON SCHEMA:
@@ -282,7 +280,7 @@ ${JSON.stringify(SCHEMA_PART_2, null, 2)}`;
     const part2 = await callOpenRouter(
       prompt2,
       `Master Plan:\n${JSON.stringify(part1, null, 2)}\n\nNow generate the suspects and witnesses for this case.`,
-      1400 // Max tokens for Part 2
+      4000 // Max tokens for Part 2
     );
 
     // -------------------------------------------------------------
@@ -292,7 +290,6 @@ ${JSON.stringify(SCHEMA_PART_2, null, 2)}`;
 You must design these elements to seamlessly support the Master Plan and the Cast provided by the user.
 Include exactly 3 pieces of evidence, 2 locations, and 2 red herrings.
 Ensure every element of the solution is reachable.
-CRITICAL: Keep all text fields (descriptions, details) EXTREMELY BRIEF (1-2 sentences max) to conserve tokens.
 Output ONLY a JSON object matching the provided schema exactly.
 ${COMMON_RULES}
 REQUIRED JSON SCHEMA:
@@ -301,7 +298,7 @@ ${JSON.stringify(SCHEMA_PART_3, null, 2)}`;
     const part3 = await callOpenRouter(
       prompt3,
       `Master Plan:\n${JSON.stringify(part1, null, 2)}\n\nCast:\n${JSON.stringify(part2, null, 2)}\n\nNow generate the evidence, locations, red_herrings, and gamification.`,
-      1400 // Max tokens for Part 3
+      4000 // Max tokens for Part 3
     );
 
     // -------------------------------------------------------------
