@@ -53,13 +53,13 @@ export default function LevelSelectScreen() {
                 }
               }}
               style={{
-                backgroundColor: isLocked ? 'rgba(0,0,0,0.5)' : 'var(--bg-paper)',
+                backgroundColor: isLocked ? 'rgba(0,0,0,0.5)' : 'var(--paper-white)',
                 padding: '1.5rem',
                 borderRadius: '4px',
                 cursor: isLocked ? 'not-allowed' : 'pointer',
                 border: isLocked ? '1px solid #333' : '1px solid #c7b89e',
                 boxShadow: isLocked ? 'none' : '4px 4px 8px rgba(0,0,0,0.3)',
-                color: isLocked ? '#666' : 'var(--text-ink)',
+                color: isLocked ? '#666' : 'var(--typewriter-ink)',
                 position: 'relative',
                 transition: 'transform 0.2s',
                 transform: isLocked ? 'none' : 'scale(1.02)'
