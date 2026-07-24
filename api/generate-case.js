@@ -253,6 +253,7 @@ export default async function handler(req, res) {
     // STEP 1: Master Plan
     // -------------------------------------------------------------
     const prompt1 = `You are a master mystery author. Step 1: Design the CORE SPINE of a detective game case.
+CRITICAL: Keep all text fields (summary, background, explanations, etc.) EXTREMELY BRIEF (1-2 sentences max) to conserve tokens.
 Output ONLY a JSON object matching the provided schema exactly.
 ${COMMON_RULES}
 REQUIRED JSON SCHEMA:
@@ -269,9 +270,10 @@ ${JSON.stringify(SCHEMA_PART_1, null, 2)}`;
     // -------------------------------------------------------------
     const prompt2 = `You are a master mystery author. Step 2: Flesh out the CAST & CHARACTERS for the case.
 You must design the suspects and witnesses based on the Master Plan provided by the user.
-Include at least 1 suspect with a strong motive who is NOT guilty.
-Vary witness reliability — at least one witness should be innocently wrong about something.
-Ground truth fields (true_whereabouts, what_they_actually_saw) must never leak into player-visible fields.
+Include exactly 3 suspects (including 1 with a strong motive who is NOT guilty).
+Include exactly 2 witnesses (one should be innocently wrong about something).
+Ground truth fields must never leak into player-visible fields.
+CRITICAL: Keep all text fields (alibi, whereabouts, motive, personality, secrets, etc.) EXTREMELY BRIEF (1-2 sentences max) to conserve tokens.
 Output ONLY a JSON object matching the provided schema exactly.
 ${COMMON_RULES}
 REQUIRED JSON SCHEMA:
@@ -288,8 +290,9 @@ ${JSON.stringify(SCHEMA_PART_2, null, 2)}`;
     // -------------------------------------------------------------
     const prompt3 = `You are a master mystery author. Step 3: Design the EVIDENCE, LOCATIONS, and GAME MECHANICS.
 You must design these elements to seamlessly support the Master Plan and the Cast provided by the user.
-Include at least 2 red herrings.
-Ensure every element of the solution is reachable through some combination of this evidence + interrogation.
+Include exactly 3 pieces of evidence, 2 locations, and 2 red herrings.
+Ensure every element of the solution is reachable.
+CRITICAL: Keep all text fields (descriptions, details) EXTREMELY BRIEF (1-2 sentences max) to conserve tokens.
 Output ONLY a JSON object matching the provided schema exactly.
 ${COMMON_RULES}
 REQUIRED JSON SCHEMA:
