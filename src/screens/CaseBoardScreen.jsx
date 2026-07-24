@@ -89,9 +89,15 @@ export default function CaseBoardScreen() {
                 onClick={() => navigate(`/case/${activeCase.case_id}/interrogate/${suspect.id}`)}
               >
                 <div className="pushpin"></div>
-                <div style={{ width: '100%', aspectRatio: '1', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <ImageIcon color="#999" size={48} />
-                </div>
+                {suspect.portrait_image ? (
+                  <div style={{ width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+                    <img src={suspect.portrait_image} alt={suspect.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                ) : (
+                  <div style={{ width: '100%', aspectRatio: '1', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ImageIcon color="#999" size={48} />
+                  </div>
+                )}
                 <div className="polaroid-caption">{suspect.name}</div>
               </motion.div>
             ))}

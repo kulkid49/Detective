@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useGameStore } from './store/gameStore';
-import HomeScreen from './screens/HomeScreen';
+import LevelSelectScreen from './screens/LevelSelectScreen';
 import BriefingScreen from './screens/BriefingScreen';
 import CaseBoardScreen from './screens/CaseBoardScreen';
 import InterrogationScreen from './screens/InterrogationScreen';
@@ -41,7 +41,7 @@ function App() {
     <Router>
       <DeskLayout>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route path="/" element={<LevelSelectScreen />} />
           <Route path="/case/:id/briefing" element={<BriefingScreen />} />
           <Route path="/case/:id/board" element={<CaseBoardScreen />} />
           <Route path="/case/:id/interrogate/:characterId" element={<InterrogationScreen />} />

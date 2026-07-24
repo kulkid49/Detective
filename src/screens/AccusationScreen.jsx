@@ -22,20 +22,22 @@ export default function AccusationScreen() {
     }
   };
 
-  const submitWarrant = () => {
+  const submitWarrant = async () => {
     if (!selectedSuspect) {
       alert("You must select a suspect.");
       return;
     }
     
     const isCorrect = selectedSuspect === activeCase.solution.culprit_id;
-    // In a real game, you'd check if selectedEvidence matches solution.key_evidence_chain
-    // For this prototype, we'll just base it on the suspect.
-    
+    // Calculate a rough score based on getting the suspect and evidence right
+    let score = isCorrect ? 50 : 0;
+    const correctEv = selectedEvidence.filter(e => activeCase.solution.key_evidence_chain.includes(e));
+    score += Math.floor((correctEv.length / Math.max(1, activeCase.solution.key_evidence_chain.length)) * 50);
+
     if (isCorrect) {
       setStamp('APPROVED');
       setRevealText(activeCase.solution.full_explanation);
-      // Trigger achievement or progress update here
+      await useGameStore.getState().submitAccusation(score);
     } else {
       setStamp('REJECTED');
       setRevealText("The District Attorney threw out your case. You got the wrong person, Detective.");

@@ -10,13 +10,14 @@ export default function InterrogationScreen() {
   const navigate = useNavigate();
   const activeCase = useGameStore(state => state.activeCase);
   const progress = useGameStore(state => state.progress);
+  const unlockEvidence = useGameStore(state => state.unlockEvidence);
   
-  const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
 
   const character = activeCase?.suspects.find(s => s.id === characterId) || 
                     activeCase?.witnesses.find(w => w.id === characterId);
+
+  const dialogueTree = activeCase?.dialogue?.[characterId] || [];
 
   const transcripts = useLiveQuery(() => 
     db.transcripts.where({ case_id: caseId, characterId }).sortBy('timestamp'),
@@ -25,62 +26,56 @@ export default function InterrogationScreen() {
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [transcripts, isTyping]);
+  }, [transcripts]);
 
   if (!activeCase || !character) return null;
 
-  const handleSend = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isTyping) return;
+  // Determine which topics have already been asked
+  const askedTopicIds = new Set(transcripts.filter(t => t.role === 'player' && t.topic_id).map(t => t.topic_id));
 
-    const userMsg = input.trim();
-    setInput('');
-    setIsTyping(true);
+  // Determine available topics to show
+  const availableTopics = dialogueTree.filter(topic => {
+    // Hide if already asked (optional, but usually good so they don't spam it. Or keep it? We'll hide it for cleaner UI)
+    if (askedTopicIds.has(topic.topic_id)) return false;
 
-    // Save user message
+    // Check evidence requirement
+    if (topic.requires_evidence_id && !progress.unlockedEvidence.includes(topic.requires_evidence_id)) return false;
+
+    // Check topic prerequisites
+    if (topic.requires_topic_ids && topic.requires_topic_ids.length > 0) {
+      const hasAllPrereqs = topic.requires_topic_ids.every(id => askedTopicIds.has(id));
+      if (!hasAllPrereqs) return false;
+    }
+
+    return true;
+  });
+
+  const handleTopicClick = async (topic) => {
+    // 1. Log player question
     await db.transcripts.add({
       case_id: caseId,
       characterId,
       role: 'player',
-      content: userMsg,
+      content: topic.topic_label,
+      topic_id: topic.topic_id,
       timestamp: Date.now()
     });
 
-    try {
-      const response = await fetch('/api/interrogate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          character,
-          caseContext: { title: activeCase.title, summary: activeCase.police_briefing.summary },
-          conversationHistory: transcripts,
-          presentedEvidence: null,
-          userMessage: userMsg
-        })
-      });
+    // 2. Log character response
+    await db.transcripts.add({
+      case_id: caseId,
+      characterId,
+      role: 'assistant',
+      content: topic.response,
+      reaction: topic.reaction,
+      timestamp: Date.now() + 10 // slightly after
+    });
 
-      if (!response.ok) throw new Error("Failed to get response");
-      const data = await response.json();
-
-      // Save character response
-      await db.transcripts.add({
-        case_id: caseId,
-        characterId,
-        role: 'assistant',
-        content: data.reply,
-        timestamp: Date.now()
-      });
-    } catch (err) {
-      console.error(err);
-      await db.transcripts.add({
-        case_id: caseId,
-        characterId,
-        role: 'assistant',
-        content: "*The suspect refuses to answer.* (Error connecting to server)",
-        timestamp: Date.now()
-      });
-    } finally {
-      setIsTyping(false);
+    // 3. Unlock any evidence
+    if (topic.unlocks_evidence_ids) {
+      for (const evId of topic.unlocks_evidence_ids) {
+        await unlockEvidence(evId);
+      }
     }
   };
 
@@ -98,7 +93,13 @@ export default function InterrogationScreen() {
         background: 'linear-gradient(180deg, #222, #111)'
       }}>
         <div className="polaroid" style={{ transform: 'rotate(-2deg)' }}>
-          <div style={{ width: '250px', height: '250px', background: '#444' }}></div>
+          {character.portrait_image ? (
+            <img src={character.portrait_image} alt={character.name} style={{ width: '250px', height: '250px', objectFit: 'cover' }} />
+          ) : (
+            <div style={{ width: '250px', height: '250px', background: '#444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem', color: '#666', fontFamily: 'var(--font-typewriter-bold)' }}>
+              {character.name.split(' ').map(n => n[0]).join('')}
+            </div>
+          )}
           <div className="polaroid-caption">{character.name}</div>
         </div>
         <div style={{ marginTop: '3rem', fontFamily: 'var(--font-typewriter)', fontSize: '0.9rem', color: '#888' }}>
@@ -128,40 +129,36 @@ export default function InterrogationScreen() {
         }}>
           {transcripts.map((t) => (
             <div key={t.id} style={{ 
-              marginBottom: '1rem',
+              marginBottom: '1.5rem',
               color: t.role === 'player' ? 'var(--blood-red)' : 'var(--typewriter-ink)'
             }}>
-              <strong>{t.role === 'player' ? 'DETECTIVE' : character.name.toUpperCase()}:</strong> {t.content}
+              <strong>{t.role === 'player' ? 'DETECTIVE' : character.name.toUpperCase()}:</strong> 
+              {t.role === 'assistant' && t.reaction && <em style={{color: '#666'}}> [{t.reaction}] </em>}
+              {t.content}
             </div>
           ))}
-          {isTyping && (
-            <div style={{ color: '#666', fontStyle: 'italic' }}>
-              {character.name} is speaking...
-            </div>
-          )}
           <div ref={chatEndRef} />
         </div>
 
-        {/* Input Area */}
-        <div style={{ padding: '2rem 3rem', background: 'rgba(0,0,0,0.05)', borderTop: '1px solid #ccc' }}>
-          <form onSubmit={handleSend} style={{ display: 'flex', gap: '1rem' }}>
-            <input 
-              type="text"
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              placeholder="Type your question..."
-              style={{
-                flex: 1,
-                padding: '1rem',
-                fontFamily: 'var(--font-typewriter)',
-                fontSize: '1.1rem',
-                border: '1px solid #999',
-                background: 'white',
-                outline: 'none'
-              }}
-            />
-            <button type="submit" className="btn" disabled={isTyping}>ASK</button>
-          </form>
+        {/* Input Area (Dialogue Tree Buttons) */}
+        <div style={{ padding: '2rem 3rem', background: 'rgba(0,0,0,0.05)', borderTop: '1px solid #ccc', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <h4 style={{ fontFamily: 'var(--font-typewriter-bold)', margin: '0 0 1rem 0', color: '#666' }}>AVAILABLE TOPICS:</h4>
+          {availableTopics.length === 0 ? (
+            <div style={{ fontStyle: 'italic', color: '#999' }}>No more topics to discuss right now. Find more evidence!</div>
+          ) : (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+              {availableTopics.map(topic => (
+                <button 
+                  key={topic.topic_id}
+                  onClick={() => handleTopicClick(topic)}
+                  className="btn"
+                  style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', backgroundColor: 'var(--paper-white)', color: 'var(--typewriter-ink)', border: '1px solid #999', borderRadius: '4px', cursor: 'pointer' }}
+                >
+                  {topic.topic_label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
       </div>
