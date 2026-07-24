@@ -56,7 +56,7 @@ Rules:
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'google/gemini-1.5-flash',
+        model: 'google/gemini-flash-1.5',
         messages: messages
       })
     });
