@@ -184,7 +184,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'google/gemini-1.5-pro',
         messages: [
           { role: 'system', content: prompt },
           { role: 'user', content: 'Generate the case.' }
@@ -196,7 +196,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("OpenRouter API Error:", errorText);
-      return res.status(response.status).json({ error: "Failed to generate case from OpenRouter." });
+      return res.status(response.status).json({ error: "Failed to generate case from OpenRouter.", details: errorText });
     }
 
     const data = await response.json();
