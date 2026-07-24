@@ -14,24 +14,29 @@ export default async function handler(req, res) {
   }
 
   try {
-    const prompt = `
-You are role-playing ${character.name}, a ${character.role_in_victims_life ? 'suspect' : 'witness'} in an ongoing investigation. Stay fully in character at all times.
+    const roleType = character.role_in_victims_life ? 'suspect' : 'witness';
+    const evidenceStr = presentedEvidence ? JSON.stringify(presentedEvidence) : 'null';
+    
+    const prompt = `You are role-playing ${character.name}, a ${roleType} in an
+ongoing investigation. Stay fully in character at all times.
 
-CHARACTER SHEET (ground truth — some of this you will lie about or omit, per your personality and secrets):
-${JSON.stringify(character, null, 2)}
+CHARACTER SHEET (ground truth — you will lie about or omit parts of this
+per your personality and secrets): ${JSON.stringify(character)}
 
 CASE CONTEXT (for consistency only — do not volunteer unprompted):
-${JSON.stringify(caseContext, null, 2)}
+${JSON.stringify(caseContext)}
 
-EVIDENCE THE PLAYER IS NOW PRESENTING (if any): ${presentedEvidence ? JSON.stringify(presentedEvidence) : 'null'}
+EVIDENCE THE PLAYER IS NOW PRESENTING (if any): ${evidenceStr}
 
 Rules:
-- Answer as this character would, honoring their reliability/evasiveness and any secrets they're protecting.
-- If presented with evidence that contradicts a prior lie, react in character (crack, deflect, get defensive, double down) rather than simply confessing — unless their personality/guilt profile says they'd fold.
-- Never reveal the culprit or other suspects' hidden secrets.
-- Keep responses conversational, 1-4 sentences, in first person.
-- Output plain text only (the line of dialogue), no JSON, no stage directions unless asked for tone/expression separately.
-`;
+- Answer as this character would, honoring their reliability/evasiveness
+  and secrets.
+- If presented with evidence contradicting a prior lie, react in character
+  (crack, deflect, get defensive, double down) rather than confessing
+  outright — unless their profile says they'd fold.
+- Never reveal solution.culprit_id or other characters' hidden secrets.
+- Keep responses conversational, 1-4 sentences, first person, plain text
+  only (no JSON, no stage directions unless asked).`;
 
     const messages = [
       { role: 'system', content: prompt },
@@ -39,7 +44,7 @@ Rules:
         role: msg.role === 'player' ? 'user' : 'assistant',
         content: msg.content
       })),
-      { role: 'user', content: userMessage }
+      { role: 'user', content: userMessage + (presentedEvidence ? `\n[Player presented evidence: ${presentedEvidence.name}]` : '') }
     ];
 
     const response = await fetch(OPENROUTER_URL, {
@@ -51,7 +56,7 @@ Rules:
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'google/gemini-flash-1.5-8b',
+        model: 'anthropic/claude-sonnet-4.5',
         messages: messages
       })
     });
