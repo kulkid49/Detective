@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
 import { motion, AnimatePresence } from 'framer-motion';
+import AlertModal from '../components/AlertModal';
 
 export default function AccusationScreen() {
   const activeCase = useGameStore(state => state.activeCase);
@@ -11,6 +12,7 @@ export default function AccusationScreen() {
   const [selectedEvidence, setSelectedEvidence] = useState([]);
   const [stamp, setStamp] = useState(null); // 'APPROVED' or 'REJECTED'
   const [revealText, setRevealText] = useState('');
+  const [modalConfig, setModalConfig] = useState({ isOpen: false, message: '' });
 
   if (!activeCase) return null;
 
@@ -24,7 +26,7 @@ export default function AccusationScreen() {
 
   const submitWarrant = async () => {
     if (!selectedSuspect) {
-      alert("You must select a suspect.");
+      setModalConfig({ isOpen: true, message: "You must select a primary suspect before submitting a warrant." });
       return;
     }
     
@@ -141,6 +143,11 @@ export default function AccusationScreen() {
         </AnimatePresence>
 
       </div>
+      <AlertModal 
+        isOpen={modalConfig.isOpen} 
+        message={modalConfig.message} 
+        onClose={() => setModalConfig({ ...modalConfig, isOpen: false })} 
+      />
     </div>
   );
 }

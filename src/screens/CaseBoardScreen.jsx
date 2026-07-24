@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
 import { motion } from 'framer-motion';
 import { Map, Users, FolderOpen, Clock, Edit3, Image as ImageIcon } from 'lucide-react';
+import AlertModal from '../components/AlertModal';
 
 export default function CaseBoardScreen() {
   const activeCase = useGameStore(state => state.activeCase);
@@ -11,6 +12,7 @@ export default function CaseBoardScreen() {
   const navigate = useNavigate();
   
   const [activeTab, setActiveTab] = useState('suspects');
+  const [modalConfig, setModalConfig] = useState({ isOpen: false, message: '' });
 
   if (!activeCase) return null;
 
@@ -197,12 +199,12 @@ export default function CaseBoardScreen() {
                                   }
                                 });
                                 if (newlyUnlocked) {
-                                  alert(detail.text + "\n\n[ NEW EVIDENCE UNLOCKED! Check the Evidence tab. ]");
+                                  setModalConfig({ isOpen: true, message: detail.text + "\n\n[ NEW EVIDENCE UNLOCKED! Check the Evidence tab. ]" });
                                 } else {
-                                  alert(detail.text);
+                                  setModalConfig({ isOpen: true, message: detail.text });
                                 }
                               } else {
-                                alert(detail.text);
+                                setModalConfig({ isOpen: true, message: detail.text });
                               }
                             }}
                           >
@@ -255,6 +257,12 @@ export default function CaseBoardScreen() {
         )}
 
       </div>
+
+      <AlertModal 
+        isOpen={modalConfig.isOpen} 
+        message={modalConfig.message} 
+        onClose={() => setModalConfig({ ...modalConfig, isOpen: false })} 
+      />
     </div>
   );
 }
