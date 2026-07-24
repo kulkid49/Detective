@@ -68,6 +68,13 @@ export default function CaseBoardScreen() {
         <div style={{ padding: '2rem 1rem' }}>
           <button 
             className="btn" 
+            style={{ width: '100%', marginBottom: '1rem', background: 'transparent', color: '#333', border: '1px solid #ccc' }}
+            onClick={() => navigate(`/case/${activeCase.case_id}/briefing`)}
+          >
+            &larr; CASE BRIEFING
+          </button>
+          <button 
+            className="btn" 
             style={{ width: '100%', background: 'var(--blood-red)', color: 'white' }}
             onClick={() => navigate(`/case/${activeCase.case_id}/accuse`)}
           >
