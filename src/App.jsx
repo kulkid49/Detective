@@ -12,6 +12,9 @@ import { Briefcase } from 'lucide-react';
 function DeskLayout({ children, showTopBar = true }) {
   const activeCase = useGameStore(state => state.activeCase);
   const location = useLocation();
+  const isCaseRoute = location.pathname.startsWith('/case/');
+  const backLinkTarget = isCaseRoute ? '/archives' : '/';
+  const backLinkLabel = isCaseRoute ? 'Back to Archives' : 'Back to Title';
 
   return (
     <div className="desk-layout">
@@ -25,8 +28,8 @@ function DeskLayout({ children, showTopBar = true }) {
           </div>
           <div className="top-actions">
             {location.pathname !== '/' && (
-              <Link className="top-link" to={activeCase ? "/archives" : "/"}>
-                &larr; {activeCase ? 'Back to Archives' : 'Back to Title'}
+              <Link className="top-link" to={backLinkTarget}>
+                &larr; {backLinkLabel}
               </Link>
             )}
             <DetectiveBadge />
