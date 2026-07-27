@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useGameStore } from './store/gameStore';
 import LandingScreen from './screens/LandingScreen';
 import LevelSelectScreen from './screens/LevelSelectScreen';
@@ -17,15 +17,15 @@ function DeskLayout({ children, showTopBar = true }) {
     <div className="desk-layout">
       {showTopBar && (
         <header className="top-bar">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="case-title-wrap">
             <Briefcase size={24} />
-            <h1 style={{ fontFamily: 'var(--font-typewriter-bold)', margin: 0, fontSize: '1.5rem' }}>
+            <h1 className="case-title">
               {activeCase ? `CASE: ${activeCase.title.toUpperCase()}` : 'CASE FILES'}
             </h1>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <div className="top-actions">
             {location.pathname !== '/' && (
-              <Link to={activeCase ? "/archives" : "/"} style={{ color: 'white', textDecoration: 'none', fontFamily: 'var(--font-typewriter)' }}>
+              <Link className="top-link" to={activeCase ? "/archives" : "/"}>
                 &larr; {activeCase ? 'Back to Archives' : 'Back to Title'}
               </Link>
             )}

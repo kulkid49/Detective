@@ -176,3 +176,345 @@ body {
   top: 0;
   left: 0;
 }
+
+/* Game-worthy responsive shell */
+html {
+  height: 100%;
+  font-size: clamp(14px, 1.4vw, 16px);
+}
+
+body {
+  min-height: 100%;
+  overscroll-behavior: none;
+}
+
+button,
+select,
+textarea,
+a {
+  -webkit-tap-highlight-color: rgba(201, 42, 42, 0.25);
+}
+
+.btn {
+  min-height: 44px;
+  border-radius: 3px;
+  touch-action: manipulation;
+}
+
+.top-bar {
+  gap: 1rem;
+  min-height: 72px;
+}
+
+.case-title-wrap,
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.case-title {
+  font-family: var(--font-typewriter-bold);
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.15;
+}
+
+.top-link {
+  color: white;
+  text-decoration: none;
+  font-family: var(--font-typewriter);
+  white-space: nowrap;
+}
+
+.main-content,
+.scroll-screen,
+.board-main {
+  min-height: 0;
+}
+
+.scroll-screen,
+.archives-screen {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.landing-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+}
+
+.landing-hero {
+  z-index: 10;
+  text-align: center;
+  width: min(100%, 980px);
+}
+
+.landing-title {
+  font-family: var(--font-typewriter-bold);
+  font-size: clamp(3rem, 12vw, 6rem);
+  color: var(--paper-white);
+  text-shadow: 4px 4px 10px rgba(0,0,0,0.8), 0 0 24px rgba(201,42,42,0.28);
+  letter-spacing: clamp(2px, 1vw, 8px);
+  margin: 0;
+}
+
+.landing-subtitle {
+  font-family: var(--font-typewriter);
+  font-size: clamp(0.9rem, 4vw, 1.5rem);
+  color: #cfc4ad;
+  margin-top: 1rem;
+  letter-spacing: clamp(1px, 0.8vw, 4px);
+}
+
+.landing-cta {
+  z-index: 10;
+  margin-top: clamp(2.5rem, 10vh, 5rem);
+}
+
+.archives-screen {
+  padding: clamp(1rem, 4vw, 2rem);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.screen-heading {
+  font-family: var(--font-typewriter-bold);
+  color: white;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  margin-bottom: 2rem;
+  text-shadow: 0 3px 14px rgba(0,0,0,0.8);
+}
+
+.archive-grid,
+.board-main > div[style*="grid"] {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)) !important;
+  gap: clamp(1rem, 4vw, 2rem) !important;
+}
+
+.briefing-screen,
+.accusation-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1rem, 4vw, 3rem) clamp(0.75rem, 4vw, 2rem);
+}
+
+.briefing-doc,
+.accusation-doc {
+  width: 100%;
+  max-width: 800px;
+}
+
+.accusation-doc {
+  padding: clamp(1.25rem, 6vw, 4rem) !important;
+  position: relative;
+}
+
+.briefing-details,
+.warrant-actions {
+  display: flex;
+  gap: clamp(1rem, 4vw, 2rem);
+}
+
+.briefing-details {
+  margin-bottom: 2rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+.warrant-actions {
+  justify-content: center;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.case-board-screen {
+  position: relative;
+  display: flex;
+}
+
+.board-sidebar {
+  width: 250px;
+  background: rgba(255,255,255,0.92);
+  border-right: 1px solid #ccc;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  flex-shrink: 0;
+}
+
+.board-main {
+  flex: 1;
+  padding: clamp(1rem, 4vw, 3rem);
+  overflow-y: auto;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+.interrogation-screen {
+  display: flex;
+  height: 100%;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  min-height: 0;
+}
+
+.subject-panel {
+  width: min(400px, 38vw);
+  padding: clamp(1rem, 4vw, 3rem);
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #222, #111);
+  flex-shrink: 0;
+}
+
+.subject-panel .polaroid img,
+.subject-panel .polaroid > div:first-child {
+  width: min(250px, 26vw) !important;
+  height: min(250px, 26vw) !important;
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: hidden;
+  }
+
+  .desk-layout {
+    height: 100dvh;
+  }
+
+  .top-bar {
+    align-items: flex-start;
+    padding: 0.75rem max(0.75rem, env(safe-area-inset-right)) 0.75rem max(0.75rem, env(safe-area-inset-left));
+    min-height: auto;
+  }
+
+  .case-title-wrap {
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .case-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .top-actions {
+    gap: 0.5rem;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+
+  .top-link {
+    font-size: 0.8rem;
+  }
+
+  .paper-doc {
+    padding: 1.25rem;
+  }
+
+  .landing-cta .btn {
+    width: min(100%, 330px);
+    padding: 1rem 1.25rem !important;
+    font-size: 1rem !important;
+  }
+
+  .briefing-details,
+  .warrant-actions,
+  .interrogation-screen,
+  .case-board-screen {
+    flex-direction: column;
+  }
+
+  .board-sidebar {
+    width: 100%;
+    max-height: 48vh;
+    border-right: none;
+    border-bottom: 1px solid #c8b894;
+  }
+
+  .board-sidebar > div:first-child,
+  .board-sidebar > div:last-child {
+    padding: 0.8rem 1rem !important;
+  }
+
+  .board-sidebar nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    flex: 0 0 auto !important;
+    scrollbar-width: thin;
+  }
+
+  .board-sidebar nav button {
+    min-width: 112px;
+    flex-direction: column;
+    gap: 0.35rem !important;
+    padding: 0.8rem 0.6rem !important;
+    border-left: none !important;
+    border-bottom: 4px solid transparent;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+  }
+
+  .board-main {
+    padding: 1rem;
+  }
+
+  .polaroid {
+    padding: 8px 8px 34px;
+  }
+
+  .polaroid-caption {
+    font-size: 1.25rem;
+  }
+
+  .interrogation-screen {
+    overflow-y: auto;
+  }
+
+  .subject-panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #333;
+    gap: 1rem;
+  }
+
+  .subject-panel .polaroid img,
+  .subject-panel .polaroid > div:first-child {
+    width: min(220px, 56vw) !important;
+    height: min(220px, 56vw) !important;
+  }
+
+  .subject-panel button {
+    margin-top: 1rem !important;
+  }
+
+  .interrogation-screen > div:last-child {
+    min-height: 70vh;
+  }
+
+  .interrogation-screen > div:last-child > div:first-child,
+  .interrogation-screen > div:last-child > div:last-child {
+    padding: 1rem !important;
+  }
+
+  .stamp {
+    font-size: clamp(2rem, 13vw, 3rem);
+    right: 1rem !important;
+    top: 1rem !important;
+  }
+}

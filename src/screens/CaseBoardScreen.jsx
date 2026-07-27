@@ -25,18 +25,10 @@ export default function CaseBoardScreen() {
   ];
 
   return (
-    <div className="corkboard-bg" style={{ position: 'relative', display: 'flex' }}>
+    <div className="corkboard-bg case-board-screen">
       
       {/* Sidebar Navigation */}
-      <div style={{ 
-        width: '250px', 
-        background: 'rgba(255,255,255,0.9)', 
-        borderRight: '1px solid #ccc',
-        boxShadow: '2px 0 10px rgba(0,0,0,0.2)',
-        display: 'flex',
-        flexDirection: 'column',
-        zIndex: 20
-      }}>
+      <div className="board-sidebar">
         <div style={{ padding: '2rem 1rem', borderBottom: '1px solid #ddd' }}>
           <h2 style={{ fontFamily: 'var(--font-typewriter-bold)', margin: 0, fontSize: '1.2rem' }}>CASE BOARD</h2>
           <p style={{ fontFamily: 'var(--font-typewriter)', fontSize: '0.85rem', color: '#666' }}>Organize your findings</p>
@@ -86,7 +78,7 @@ export default function CaseBoardScreen() {
       </div>
 
       {/* Main Board Area */}
-      <div style={{ flex: 1, padding: '3rem', overflowY: 'auto', position: 'relative' }}>
+      <div className="board-main">
         
         {activeTab === 'suspects' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '2rem' }}>

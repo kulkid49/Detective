@@ -35,20 +35,12 @@ export default function BriefingScreen() {
   const { title, police_briefing } = activeCase;
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      padding: '3rem 2rem',
-      height: '100%',
-      overflowY: 'auto'
-    }}>
+    <div className="briefing-screen scroll-screen">
       <motion.div 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 50 }}
-        className="paper-doc"
-        style={{ width: '100%', maxWidth: '800px' }}
+        className="paper-doc briefing-doc"
       >
         <h2 style={{ textAlign: 'center', marginBottom: '2rem', borderBottom: '2px solid #ccc', paddingBottom: '1rem' }}>
           CASE BRIEFING: {title.toUpperCase()}
@@ -63,7 +55,7 @@ export default function BriefingScreen() {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            style={{ marginBottom: '2rem', display: 'flex', gap: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem' }}
+            className="briefing-details"
           >
             <div style={{ flex: 1 }}>
               <strong>VICTIM / TARGET:</strong><br/>

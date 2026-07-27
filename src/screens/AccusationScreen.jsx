@@ -47,15 +47,9 @@ export default function AccusationScreen() {
   };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      height: '100%',
-      padding: '2rem'
-    }}>
+    <div className="accusation-screen scroll-screen">
       
-      <div className="paper-doc" style={{ width: '100%', maxWidth: '800px', padding: '4rem', position: 'relative' }}>
+      <div className="paper-doc accusation-doc">
         
         <h2 style={{ fontFamily: 'var(--font-typewriter-bold)', textAlign: 'center', fontSize: '2rem', marginBottom: '2rem', borderBottom: '2px solid #000', paddingBottom: '1rem' }}>
           WARRANT REQUEST
@@ -95,7 +89,7 @@ export default function AccusationScreen() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', marginTop: '3rem' }}>
+            <div className="warrant-actions">
               <button 
                 className="btn" 
                 onClick={() => navigate(`/case/${activeCase.case_id}/board`)}
