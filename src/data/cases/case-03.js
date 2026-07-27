@@ -98,7 +98,7 @@ export default {
       relationship_to_other_suspects:
         "No relationship with Sanjana or Farid beyond professional dealings; " +
         "knows Rhea only casually through Arjun.",
-      portrait_image: null
+      portrait_image: "/images/suspects/vikram.jpg"
     },
     {
       id: "rhea",
@@ -126,7 +126,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Cordial with Vikram, has never met Sanjana or Farid personally.",
-      portrait_image: null
+      portrait_image: "/images/suspects/rhea.jpg"
     },
     {
       id: "sanjana",
@@ -157,7 +157,7 @@ export default {
       relationship_to_other_suspects:
         "Purely professional relationship with Vikram; barely knows Rhea or " +
         "Farid.",
-      portrait_image: null
+      portrait_image: "/images/suspects/sanjana.jpg"
     },
     {
       id: "farid",
@@ -185,7 +185,7 @@ export default {
       relationship_to_other_suspects:
         "No relationship with Vikram, Sanjana, or Rhea beyond having been an " +
         "investor in NovaPay.",
-      portrait_image: null
+      portrait_image: "/images/suspects/farid.jpg"
     }
   ],
 
