@@ -17,23 +17,27 @@ export const useGameStore = create((set, get) => ({
   isLoading: false,
   error: null,
 
-  // Initialize DB for all levels on first boot
+  // Initialize DB for all levels on first boot and ensure all are unlocked
   initProgression: async () => {
-    const case1Progress = await db.progress.get(cases[0].case_id);
-    if (!case1Progress) {
-      // First boot: unlock level 1, lock the rest
-      for (let i = 0; i < cases.length; i++) {
-        await db.progress.put({
+    for (let i = 0; i < cases.length; i++) {
+      let progressData = await db.progress.get(cases[i].case_id);
+      
+      if (!progressData) {
+        progressData = {
           case_id: cases[i].case_id,
-          status: i === 0 ? 'unlocked' : 'locked',
+          status: 'unlocked', // All levels unlocked by default now
           score: null,
           completed_at: null,
-          unlockedEvidence: cases[i].evidence.filter(e => e.unlocked_by_default).map(e => e.id),
+          unlockedEvidence: cases[i].evidence?.filter(e => e.unlocked_by_default).map(e => e.id) || [],
           discoveredTimeline: [],
           notebook: '',
           hintsUsed: 0,
-        });
+        };
+      } else if (progressData.status === 'locked') {
+        progressData.status = 'unlocked';
       }
+      
+      await db.progress.put(progressData);
     }
   },
 
