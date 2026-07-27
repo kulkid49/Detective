@@ -29,16 +29,12 @@ export default function LevelSelectScreen() {
   if (loading) return <div style={{ color: 'white', padding: '2rem' }}>Loading Case Files...</div>;
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h2 style={{ fontFamily: 'var(--font-typewriter-bold)', color: 'white', fontSize: '2rem', marginBottom: '2rem' }}>
+    <div className="archives-screen">
+      <h2 className="screen-heading">
         AGENCY ARCHIVES
       </h2>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-        gap: '2rem' 
-      }}>
-        {levelData.map((level, idx) => {
+      <div className="archive-grid">
+        {levelData.map((level) => {
           const status = level.progress?.status || 'locked';
           const isLocked = status === 'locked';
           const isCompleted = status === 'completed';

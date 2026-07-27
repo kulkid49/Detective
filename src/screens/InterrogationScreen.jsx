@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
 import { db } from '../db/db';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { motion } from 'framer-motion';
 
 export default function InterrogationScreen() {
   const { characterId, id: caseId } = useParams();
@@ -80,18 +79,10 @@ export default function InterrogationScreen() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100%', background: '#1a1a1a', color: '#e0e0e0' }}>
+    <div className="interrogation-screen">
       
       {/* Subject Column */}
-      <div style={{ 
-        width: '400px', 
-        padding: '3rem', 
-        borderRight: '1px solid #333',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'linear-gradient(180deg, #222, #111)'
-      }}>
+      <div className="subject-panel">
         <div className="polaroid" style={{ transform: 'rotate(-2deg)' }}>
           {character.portrait_image ? (
             <img src={character.portrait_image} alt={character.name} style={{ width: '250px', height: '250px', objectFit: 'cover' }} />

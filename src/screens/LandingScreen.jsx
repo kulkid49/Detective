@@ -6,15 +6,7 @@ export default function LandingScreen() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      height: '100%',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
+    <div className="landing-screen">
       
       {/* Animated Background Elements */}
       <motion.div
@@ -50,7 +42,7 @@ export default function LandingScreen() {
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        style={{ zIndex: 10, textAlign: 'center' }}
+        className="landing-hero"
       >
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
           <motion.div
@@ -62,14 +54,7 @@ export default function LandingScreen() {
           </motion.div>
         </div>
         
-        <h1 style={{ 
-          fontFamily: 'var(--font-typewriter-bold)', 
-          fontSize: '6rem', 
-          color: 'var(--paper-white)',
-          textShadow: '4px 4px 10px rgba(0,0,0,0.8)',
-          letterSpacing: '8px',
-          margin: 0
-        }}>
+        <h1 className="landing-title">
           CASE FILES
         </h1>
         
@@ -77,13 +62,7 @@ export default function LandingScreen() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 2 }}
-          style={{ 
-            fontFamily: 'var(--font-typewriter)', 
-            fontSize: '1.5rem', 
-            color: '#aaa',
-            marginTop: '1rem',
-            letterSpacing: '4px'
-          }}
+          className="landing-subtitle"
         >
           AN INTERACTIVE DETECTIVE MYSTERY
         </motion.p>
@@ -93,7 +72,7 @@ export default function LandingScreen() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.5, duration: 1 }}
-        style={{ zIndex: 10, marginTop: '5rem' }}
+        className="landing-cta"
       >
         <button 
           className="btn"
