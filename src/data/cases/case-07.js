@@ -98,7 +98,7 @@ export default {
       relationship_to_other_suspects:
         "Mother of Tarun and Rhea; mother-in-law of Vikram; cordial with " +
         "the rest of the household.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_anjali.jpg"
     },
     {
       id: "tarun",
@@ -128,7 +128,7 @@ export default {
       relationship_to_other_suspects:
         "Son of Anjali; brother of Rhea; tense with Vikram over business " +
         "influence.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_tarun.jpg"
     },
     {
       id: "rhea",
@@ -156,7 +156,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Daughter of Anjali; sister of Tarun; married to Vikram.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_rhea.jpg"
     },
     {
       id: "vikram",
@@ -185,7 +185,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Married to Rhea; polite but distant with Tarun.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_vikram.jpg"
     },
     {
       id: "sameer",
@@ -214,7 +214,7 @@ export default {
       relationship_to_other_suspects:
         "Professional only; cordial with the family, no personal ties to " +
         "the others beyond business.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_sameer.jpg"
     },
     {
       id: "meera",
@@ -248,7 +248,7 @@ export default {
       relationship_to_other_suspects:
         "Professional only; trusted by the entire family, no personal " +
         "entanglements with any of them.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_meera.jpg"
     },
     {
       id: "ravi",
@@ -275,7 +275,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Long-time family friend; easy with everyone present.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_ravi.jpg"
     },
     {
       id: "ashok",
@@ -301,7 +301,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Professional only; respected by the family, no deeper ties.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c07_ashok.jpg"
     }
   ],
 

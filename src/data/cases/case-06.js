@@ -205,7 +205,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Warmly regarded by the whole family; no particular tension with anyone.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c06_sunita.jpg"
     },
     {
       id: "mehra",
@@ -238,7 +238,7 @@ export default {
       relationship_to_other_suspects:
         "Trusted by the entire family for decades; no personal connection to " +
         "the other suspects beyond his professional role.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c06_mehra.jpg"
     }
   ],
 
