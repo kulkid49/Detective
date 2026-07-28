@@ -146,7 +146,7 @@ export default {
       relationship_to_other_suspects:
         "No relationship with Neha, Rohan, or Anand beyond professional " +
         "dealings with the Bose family business.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c05_kabir.jpg"
     },
     {
       id: "anand",
@@ -176,7 +176,7 @@ export default {
       relationship_to_other_suspects:
         "No relationship with Neha, Rohan, or Kabir beyond his role managing " +
         "the Bose estate.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c05_anand.jpg"
     }
   ],
 
