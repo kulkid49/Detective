@@ -7,6 +7,7 @@ import CaseBoardScreen from './screens/CaseBoardScreen';
 import InterrogationScreen from './screens/InterrogationScreen';
 import AccusationScreen from './screens/AccusationScreen';
 import DetectiveBadge from './components/DetectiveBadge';
+import BackgroundMusic from './components/BackgroundMusic';
 import { Briefcase } from 'lucide-react';
 
 function DeskLayout({ children, showTopBar = true }) {
@@ -65,6 +66,7 @@ function App() {
   return (
     <Router>
       <AppContent />
+      <BackgroundMusic />
     </Router>
   );
 }

@@ -518,3 +518,33 @@ a {
     top: 1rem !important;
   }
 }
+
+.music-toggle {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 1000;
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(234, 221, 179, 0.75);
+  border-radius: 999px;
+  color: var(--paper-white);
+  background: rgba(30, 24, 18, 0.88);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.music-toggle:hover {
+  transform: translateY(-2px);
+  background: rgba(45, 36, 28, 0.96);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.52);
+}
+
+.music-toggle:focus-visible {
+  outline: 3px solid var(--stamp-red);
+  outline-offset: 3px;
+}
