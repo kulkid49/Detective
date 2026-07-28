@@ -114,7 +114,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Tense but civil with her brother Rajat; cordial with Priyanka.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c06_mallika.jpg"
     },
     {
       id: "siddharth",
@@ -137,7 +137,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Friendly with the rest of the family, no particular tension with anyone.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c06_siddharth.jpg"
     },
     {
       id: "priyanka",
@@ -159,8 +159,8 @@ export default {
       secrets: ["Knows about Rajat's affair but hasn't confronted him about it yet"],
       guilty: false,
       relationship_to_other_suspects:
-        "Married to Rajat; cordial with Mallika and the rest of the household.",
-      portrait_image: null
+        "Protective of Rajat; often clashes with Mallika.",
+      portrait_image: "/images/suspects/c06_priyanka.jpg"
     },
     {
       id: "bikash",
@@ -184,7 +184,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Longtime family friend; cordial with everyone present.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c06_bikash.jpg"
     },
     {
       id: "sunita",

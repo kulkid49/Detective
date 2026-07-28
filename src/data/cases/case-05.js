@@ -95,9 +95,8 @@ export default {
       ],
       guilty: true,
       relationship_to_other_suspects:
-        "No relationship with Rohan, Kabir, or Anand beyond knowing of them " +
-        "through Ishaan.",
-      portrait_image: null
+        "Met Rohan a few times; has never met Kabir or Anand.",
+      portrait_image: "/images/suspects/c05_neha.jpg"
     },
     {
       id: "rohan",
@@ -121,9 +120,8 @@ export default {
       secrets: [],
       guilty: false,
       relationship_to_other_suspects:
-        "No connection to Neha, Kabir, or Anand beyond his friendship with " +
-        "Ishaan.",
-      portrait_image: null
+        "Knows Neha; no relationship with Kabir or Anand.",
+      portrait_image: "/images/suspects/c05_rohan.jpg"
     },
     {
       id: "kabir",

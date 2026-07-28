@@ -132,7 +132,7 @@ export default {
       relationship_to_other_suspects:
         "Long professional relationship with Aveek; no connection to Sourav " +
         "or Kunal.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c04_ranjan.jpg"
     },
     {
       id: "sourav",
@@ -159,9 +159,9 @@ export default {
       ],
       guilty: false,
       relationship_to_other_suspects:
-        "Longtime professional relationship with Aveek as a client; no " +
+        "Longtime professional relationship with Aveek; no " +
         "connection to Ranjan or Kunal.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c04_sourav.jpg"
     },
     {
       id: "kunal",
@@ -189,8 +189,8 @@ export default {
       ],
       guilty: false,
       relationship_to_other_suspects:
-        "Employed by Aveek; no connection to Ranjan or Sourav.",
-      portrait_image: null
+        "Cordial with Aveek; professional friction with Sourav.",
+      portrait_image: "/images/suspects/c04_kunal.jpg"
     }
   ],
 
