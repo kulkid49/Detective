@@ -91,7 +91,7 @@ export default {
       relationship_to_other_suspects:
         "Married to Priyanka; tense but civil with his sister Mallika; " +
         "cordial with the rest of the household.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c06_rajat.jpg"
     },
     {
       id: "mallika",
