@@ -98,7 +98,7 @@ export default {
       relationship_to_other_suspects:
         "Husband of Leela; father of Kabir; employer of Dev and Ramesh; " +
         "host to the remaining guests.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c08_arjun.jpg"
     },
     {
       id: "leela",
@@ -127,7 +127,7 @@ export default {
       guilty: false,
       relationship_to_other_suspects:
         "Wife of Arjun; mother of Kabir; cordial with household staff.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c08_leela.jpg"
     },
     {
       id: "kabir",
@@ -159,7 +159,7 @@ export default {
       relationship_to_other_suspects:
         "Son of Arjun and Leela; knows the technician through a prior " +
         "introduction arranged by Dev.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c08_kabir.jpg"
     },
     {
       id: "dev",
