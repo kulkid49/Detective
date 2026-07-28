@@ -151,7 +151,12 @@ export default function CaseBoardScreen() {
         {activeTab === 'locations' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
             {activeCase.locations?.map(loc => (
-              <motion.div key={loc.id} className="paper-doc" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <motion.div key={loc.id} className="paper-doc" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ overflow: 'hidden' }}>
+                {loc.image && (
+                  <div style={{ margin: '-2rem -2rem 1.5rem -2rem', borderBottom: '2px solid #333' }}>
+                    <img src={loc.image} alt={loc.name} style={{ width: '100%', height: '180px', objectFit: 'cover', filter: 'sepia(0.3) contrast(1.2)' }} />
+                  </div>
+                )}
                 <h3 style={{ borderBottom: '2px solid var(--blood-red)', paddingBottom: '0.5rem', marginTop: 0, fontFamily: 'var(--font-typewriter-bold)' }}>
                   {loc.name.toUpperCase()}
                 </h3>

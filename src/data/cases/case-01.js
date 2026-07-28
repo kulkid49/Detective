@@ -676,6 +676,7 @@ export default {
       description:
         "A quiet old bungalow with a front gate on the street and a rarely-used " +
         "back gate opening onto a service lane behind the property.",
+      image: "/images/locations/c01_victim_residence.jpg",
       examinable_details: [
         {
           id: "back_gate",
@@ -707,6 +708,7 @@ export default {
       description:
         "Debashish's gallery, closed since his death, still full of sculpture, " +
         "manuscripts, and years of paperwork.",
+      image: "/images/locations/c01_antique_shop.jpg",
       examinable_details: [
         {
           id: "office_files",
@@ -732,6 +734,7 @@ export default {
         "A popular evening spot along the river, usually busy with walkers and " +
         "street vendors even after dark — where Meera claims to have spent the " +
         "evening alone.",
+      image: "/images/locations/c01_riverside_promenade.jpg",
       examinable_details: [
         {
           id: "vendor_testimony",
