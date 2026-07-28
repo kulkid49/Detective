@@ -102,7 +102,7 @@ export default {
       relationship_to_other_suspects:
         "Long working relationship with Ranjan Basu; a longtime client of " +
         "Sourav Dutta; employer of Kunal Sen.",
-      portrait_image: null
+      portrait_image: "/images/suspects/c04_aveek.jpg"
     },
     {
       id: "ranjan",
